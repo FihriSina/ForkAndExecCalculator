@@ -67,3 +67,75 @@ Exiting...
 ├── saver.c            # Saves results to a file
 ├── Makefile           # Compilation rules
 └── results.txt        # Output file for results
+
+
+# **İşlem Tabanlı Hesap Makinesi**
+
+## **Proje Açıklaması**  
+Bu proje, boru hatları (pipes) aracılığıyla İşlemler Arası İletişim (IPC) kullanan C dilinde bir işlem tabanlı hesap makinesi uygulamasıdır.  
+Program, toplama, çıkarma, çarpma ve bölme işlemlerini gerçekleştirmek için her bir işlem için ayrı bir alt işlem (`fork`, `exec`) oluşturur. Sonuçlar, harici bir `saver` programı kullanılarak bir dosyaya kaydedilir.  
+
+Bu proje, sistem düzeyinde programlama kavramlarını ve UNIX benzeri bir ortamda işlemler arası etkili iletişimin nasıl sağlanacağını göstermektedir.  
+
+---
+
+## **Özellikler**  
+- **Matematiksel İşlemler**: Toplama, çıkarma, çarpma ve bölme işlemleri.  
+- **İşlem Yönetimi**: İşlemleri gerçekleştirmek için `fork` ile alt işlemler oluşturulur ve `exec` kullanılır.  
+- **İşlemler Arası İletişim**: Veriler, boru hatları (pipes) aracılığıyla işlemler arasında aktarılır.  
+- **Sonuç Kaydetme**: Sonuçlar, ayrı bir `saver` programı kullanılarak bir metin dosyasına kaydedilir.  
+
+---
+
+## **Nasıl Çalışır?**  
+1. **Ana Program**: Kullanıcıya bir menü gösterir ve hesaplamaları gerçekleştirmek için alt işlemler oluşturur.  
+2. **Alt İşlemler**: Her bir işlem (ör. toplama), `exec` ile ayrı bir alt işlem tarafından gerçekleştirilir.  
+3. **Boru Hatları (Pipes)**: Alt işlemlerden ana programa sonuçları göndermek için kullanılır.  
+4. **Saver Programı**: Sonuçlar, argüman olarak `saver` programına iletilir ve bu program sonuçları bir dosyaya yazar.  
+
+---
+
+## **Kullanım**  
+
+### **Derleme**  
+Tüm kaynak dosyaları derlemek için aşağıdaki komutu çalıştırın:  
+```bash
+make
+```  
+
+### **Çalıştırma**  
+Hesap makinesini başlatmak için:  
+```bash
+./calculator
+```  
+
+### **Örnek Çıktı**  
+```
+Hesap Makinesi  
+1- Toplama  
+2- Çıkarma  
+3- Çarpma  
+4- Bölme  
+5- Çıkış  
+Bir seçenek seçin: 1  
+İki sayı girin (sayı1 sayı2): 12 34  
+Sonuç: 46  
+
+Bir seçenek seçin: 5  
+Çıkış yapılıyor...
+```  
+
+---
+
+## **Proje Yapısı**  
+```plaintext
+.
+├── calculator.c       # Ana program
+├── addition.c         # Toplama işlemi
+├── subtraction.c      # Çıkarma işlemi
+├── multiplication.c   # Çarpma işlemi
+├── division.c         # Bölme işlemi
+├── saver.c            # Sonuçları bir dosyaya kaydeder
+├── Makefile           # Derleme kuralları
+└── results.txt        # Sonuçların kaydedildiği dosya
+```
