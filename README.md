@@ -67,7 +67,7 @@ Exiting...
 ├── saver.c            # Saves results to a file
 ├── Makefile           # Compilation rules
 └── results.txt        # Output file for results
-
+```
 
 # **İşlem Tabanlı Hesap Makinesi**
 
